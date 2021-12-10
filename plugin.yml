@@ -8,4 +8,4 @@ commands:
     napthe:
       description: Blank description.
       usage: /<command>
-softdepend: [PlayerPoints, SQLibrary]      
+softdepend: [PlayerPoints, SQLibrary]
