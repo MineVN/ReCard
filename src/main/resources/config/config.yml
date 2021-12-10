@@ -1,6 +1,9 @@
 ratio: 1
 #Tỉ lệ point nhận được
 
+currency_name: '§bXu'
+# Tên của mệnh giá: xu, đồng, xèng, point....
+
 merchant_id: xxx     
 api_user: xxx         
 api_password: xxx     
