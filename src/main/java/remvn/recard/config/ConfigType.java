@@ -28,4 +28,5 @@ public enum ConfigType {
 	ConfigType(String path) {
 		this.path = path;
 	}
+	
 }
