@@ -11,7 +11,8 @@ import org.bukkit.entity.Player;
 import remvn.recard.Main;
 import remvn.recard.card.Card;
 import remvn.recard.card.Result;
-
+import remvn.recard.config.Config;
+import remvn.recard.config.ConfigType;
 
 public class Log {
 
@@ -19,57 +20,68 @@ public class Log {
 	public static File fileSuccess = new File(main.getDataFolder(), "/success.txt");
 	public static File fileFail = new File(main.getDataFolder(), "/fail.txt");
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
 	public static void initLog() {
-		if(!fileSuccess.exists() || !fileFail.exists()) {
+		if (!fileSuccess.exists() || !fileFail.exists()) {
 			fileSuccess.getParentFile().mkdirs();
 			fileFail.getParentFile().mkdirs();
 		}
 	}
-	
+
+	// currency name
+	public static String currency_name = Config.getValue(ConfigType.CURRENCY_NAME);
+
 	public static void writeLog(String name, Card card, Result result, int point, boolean auto) {
-        BufferedWriter writer = null;
-        try {
-        	if(result.code == 0) writer = new BufferedWriter(new FileWriter(fileSuccess, true));
-        	else writer = new BufferedWriter(new FileWriter(fileFail, true));
-        } catch(IOException e1) {
-        	e1.printStackTrace();
-        }
-        try {
-        	writer.newLine();
-            writer.append("[" + dateFormat.format(System.currentTimeMillis()) + "] " + name + " | " + card.seri + " | " + card.pin + " | " + card.cardprice.getPrice() + "VNĐ | " + point + " points " + (auto ? " | auto" : ""));
+		BufferedWriter writer = null;
+		try {
+			if (result.code == 0)
+				writer = new BufferedWriter(new FileWriter(fileSuccess, true));
+			else
+				writer = new BufferedWriter(new FileWriter(fileFail, true));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			writer.newLine();
+			writer.append("[" + dateFormat.format(System.currentTimeMillis()) + "] " + name + " | " + card.seri + " | "
+					+ card.pin + " | " + card.cardprice.getPrice() + "VNĐ | " + point + " " + currency_name
+					+ (auto ? " | auto" : ""));
 			writer.flush();
 			writer.close();
-        } catch (IOException e2) {
+		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
 	}
-	
+
 	public static void writeLog(Player sender, String log, String description) {
-        BufferedWriter writer = null;
+		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(fileSuccess, true));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-        try {
-        	writer.newLine();
-			writer.append("[LOG: " + dateFormat.format(System.currentTimeMillis()) + "] " + sender.getName() + " | " + log + " | " + description);
+		try {
+			writer.newLine();
+			writer.append("[LOG: " + dateFormat.format(System.currentTimeMillis()) + "] " + sender.getName() + " | "
+					+ log + " | " + description);
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public static void writeLog(String sender, String log, String description) {
-        BufferedWriter writer = null;
+		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(fileSuccess, true));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-        try {
-        	writer.newLine();
-			writer.append("[LOG: " + dateFormat.format(System.currentTimeMillis()) + "] " + sender + " | " + log + " | " + description);
+		try {
+			writer.newLine();
+			writer.append("[LOG: " + dateFormat.format(System.currentTimeMillis()) + "] " + sender + " | " + log + " | "
+					+ description);
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {

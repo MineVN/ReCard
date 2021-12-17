@@ -73,7 +73,8 @@ public class CommandCard implements CommandExecutor {
 				Result result = new Result(0, "asd", 100000);
 				int point = result.info_card/1000;
 				point = (int) (point * Double.valueOf(Config.getValue(ConfigType.RATIO)));
-				sender.sendMessage("debug point card 100k: " + point);
+				String currency_name = Config.getValue(ConfigType.CURRENCY_NAME);
+				sender.sendMessage("debug point card 100k: " + point + " " + currency_name);
 			}
 			
 			

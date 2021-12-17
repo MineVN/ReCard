@@ -7,7 +7,11 @@
 	<version>1.2</version>
 	<name>ReCard</name>
 	<description>plugin for minefs.net</description>
-
+	
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+	
 	<repositories>
 		<!-- This adds the Spigot Maven repository to the build -->
 		<repository>

@@ -17,6 +17,8 @@ public enum ConfigType {
 	MYSQL_USER("mysql.user"),
 	MYSQL_PASSWORD("mysql.password"),
 	MYSQL_DATABASE("mysql.database"),
+
+	CURRENCY_NAME("currency_name"),
 	
 	;
 	public String path;
@@ -26,4 +28,5 @@ public enum ConfigType {
 	ConfigType(String path) {
 		this.path = path;
 	}
+	
 }

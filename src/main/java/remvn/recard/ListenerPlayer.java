@@ -32,12 +32,14 @@ public class ListenerPlayer implements Listener {
 
 	static Main main = Main.getIns();
 
+	String currency_name = Config.getValue(ConfigType.CURRENCY_NAME);
+
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		OfflinePlayer op = p.getPlayer();
 		if (CardManager.requestMap.containsKey(p.getUniqueId())) {
-//			System.out.println("nap the");
+			// System.out.println("nap the");
 			UUID uuid = p.getUniqueId();
 			Request request = CardManager.requestMap.get(uuid);
 			if (request.requestType.equals(RequestType.NONE)) {
@@ -54,17 +56,20 @@ public class ListenerPlayer implements Listener {
 			if (request.requestType.equals(RequestType.PIN)) {
 				request.card.pin = value;
 				request.requestType = RequestType.NONE;
-				
+
 				CardType cardType = request.card.cardtype;
-				if(cardType.equals(CardType.VIETTEL) || cardType.equals(CardType.VINAPHONE) || cardType.equals(CardType.MOBIFONE))
-				if(!Status.getByCardType(request.card.cardtype, Status.statusCards).status) {
-					if(Boolean.valueOf(Config.getValue(ConfigType.AUTO))) {
-						OfflineRequest offlineRequest = new OfflineRequest(op.getUniqueId(), request.card, op.getName());
-						OfflineRequest.addRequestToMap(offlineRequest);
-						p.sendMessage("§bThẻ của bạn đã chuyển vào hệ thống, khi nào hết bảo trì thẻ sẽ tự động nạp");
-						return;
+				if (cardType.equals(CardType.VIETTEL) || cardType.equals(CardType.VINAPHONE)
+						|| cardType.equals(CardType.MOBIFONE))
+					if (!Status.getByCardType(request.card.cardtype, Status.statusCards).status) {
+						if (Boolean.valueOf(Config.getValue(ConfigType.AUTO))) {
+							OfflineRequest offlineRequest = new OfflineRequest(op.getUniqueId(), request.card,
+									op.getName());
+							OfflineRequest.addRequestToMap(offlineRequest);
+							p.sendMessage(
+									"§bThẻ của bạn đã chuyển vào hệ thống, khi nào hết bảo trì thẻ sẽ tự động nạp");
+							return;
+						}
 					}
-				}
 				p.sendMessage("§aĐang tiến hành nạp thẻ, xin chờ...");
 				String resultString = "";
 				try {
@@ -88,7 +93,7 @@ public class ListenerPlayer implements Listener {
 					if (p != null) {
 						p.sendMessage("§a§lNạp thành công thẻ " + request.card.cardtype.name() + " "
 								+ request.card.cardprice.getPrice() + " VNĐ");
-						p.sendMessage("§aĐã chuyển §9" + point + " point §avào tài khoản");
+						p.sendMessage("§aĐã chuyển §9" + point + currency_name + " §avào tài khoản");
 					}
 				} else {
 					success = false;

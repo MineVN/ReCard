@@ -8,19 +8,19 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Card {
-	
+
 	public String seri;
 	public String pin;
 	public CardType cardtype;
 	public CardPrice cardprice;
 
 	public Card(String seri, String pin, CardType cardtype, CardPrice cardprice) {
-		this.seri  = seri;
+		this.seri = seri;
 		this.pin = pin;
 		this.cardtype = cardtype;
 		this.cardprice = cardprice;
 	}
-	
+
 	public Map<String, String> getMap(String user) {
 		Map<String, String> map = new HashMap<>();
 		map.put("merchant_id", Config.getValue(ConfigType.MERCHANT_ID));
@@ -33,11 +33,11 @@ public class Card {
 		map.put("note", getNote(user));
 		return map;
 	}
-	
-    public String createRequestUrl(String user) {
+
+	public String createRequestUrl(String user) {
 		return getMap(user).entrySet().stream().map(x -> x.getKey() + "=" + x.getValue())
 				.collect(Collectors.joining("&"));
-    }
+	}
 
 	public String getNote(String user) {
 		return user + " from " + Config.getValue(ConfigType.SERVER);
